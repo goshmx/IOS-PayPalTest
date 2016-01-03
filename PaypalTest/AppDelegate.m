@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "PayPalMobile.h"
 
 @interface AppDelegate ()
 
@@ -16,6 +17,9 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    [PayPalMobile initializeWithClientIdsForEnvironments:
+     @{PayPalEnvironmentProduction : @"YOUR_CLIENT_ID_FOR_PRODUCTION",
+       PayPalEnvironmentSandbox : @"AQIyVXplwDP-97-SuCC_50OdJ8kUPtH-q2axItNGqBSv2r_mxMV1mu5kJkxlE96RygFBnh392Tr6WDF_"}];
     // Override point for customization after application launch.
     return YES;
 }
@@ -51,7 +55,7 @@
 @synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
 
 - (NSURL *)applicationDocumentsDirectory {
-    // The directory the application uses to store the Core Data store file. This code uses a directory named "Kairos.PaypalTest" in the application's documents directory.
+    // The directory the application uses to store the Core Data store file. This code uses a directory named "com.chiuntisoft.PayPal_Test" in the application's documents directory.
     return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
 }
 
@@ -60,7 +64,7 @@
     if (_managedObjectModel != nil) {
         return _managedObjectModel;
     }
-    NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"PaypalTest" withExtension:@"momd"];
+    NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"PayPal_Test" withExtension:@"momd"];
     _managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
     return _managedObjectModel;
 }
@@ -74,7 +78,7 @@
     // Create the coordinator and store
     
     _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
-    NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"PaypalTest.sqlite"];
+    NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"PayPal_Test.sqlite"];
     NSError *error = nil;
     NSString *failureReason = @"There was an error creating or loading the application's saved data.";
     if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error]) {
